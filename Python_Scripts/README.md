@@ -36,17 +36,9 @@ These functions are only to be used whilst setting up the circuitry and system t
 
 `Update_Checker.py`: Used to check your data is in the correct format for the google sheet.
 
-## Master_Code_Standalone
-As mentioned above, this master code is used to generate the cheapest option over 20 years. This is the optimiation to use if a local community is supporting itselfas they are paying for it.
+## Main Functions
+These functions are the main python scripts and are used to record and update the data for the use of the MatLab script later on
 
-## Master_Code_Looped
-This master code should be used if looking for outside investment as it also considers returning their money, and profits, to them, whilst giving the community free sustainable energy
+`combined_final.py`: This file operates the sensing for the project. The force sensitive resitor senses all of the time, with interrupts each minute to run the DHT11 sensor and the date and time.
 
-### Outputs
-Running either master code will generate the following outputs:
-
-_wind_turbine_profile_: the wind turbine profile which creates the optimal BESS WTG combination
-
-_capacity_: The Capacity, in kWh, which creates the optimal BESS WTG combination
-
-_optimal_Cost_: the cost of installing and maintaining the system over the 20 year period
+`shutdown.py`: This file is run after the day's data is recorded and before shutting the raspberry pi down for the night. This is manually run currently and processes the day's data before updating the google spreadsheets file. After this it delets the used data.
