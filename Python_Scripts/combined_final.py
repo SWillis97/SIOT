@@ -86,13 +86,13 @@ try:
 		elif tick == 0:
 			[s] = fsr(total_time)
 			now = datetime.now()
+			#Get the time and date of this data point
 			date_now = now.strftime("%d/%m/%y %H:%M:%S")
 			csvlist = [h,t,s,date_now]
 			print(csvlist)
 
 			#Update Logging.csv
 			file.write(str(h)+","+str(t)+","+str(s)+","+str(date_now)+"\n")
-			#update_sheet()
 			tick = 1
 except KeyboardInterrupt:
 	pass
