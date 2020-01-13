@@ -7,15 +7,17 @@ import pandas as pd
 import os
 import csv
 
+#Set authorisation credentials
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
 creds = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
 client = gspread.authorize(creds)
 
+#Define the location and name of the spreadsheet the API is targeting 
 SPREADSHEET_ID = '1HLoDasR_YAcyZkQLkCRk67cBzrFpOnLatv81vD_qb3A'
 worksheet_name = 'Days_Combined'
 
+#
 path_to_csv = 'Days_Combined.csv'
-
 file = open("/home/pi/SIOT/Days_Combined.csv","a")
 
 def write_list_to_file(guest_list, filename):
@@ -27,7 +29,11 @@ def write_list_to_file(guest_list, filename):
             outfile.write("\n")
 
 def update_sheet():
-
+    """
+    Function used to create the temporary list which gets appended to the google 
+    sheets document. Runs the function write_list_to_file within it.
+    """
+    
     #Open new csv file
     whole_csv = pd.read_csv('Logging_final.csv', delimiter=',')
 
@@ -47,7 +53,7 @@ def update_sheet():
     write_list_to_file(Day_List,"Days_Combined.csv")
 
 def find_sheet_id_by_name(sheet_name):
-    # ugly, but works
+    # Get sheet id
     sheets_with_properties = API \
         .spreadsheets() \
         .get(spreadsheetId=SPREADSHEET_ID, fields='sheets.properties') \
@@ -64,7 +70,9 @@ list_hashes = sheet.get_all_records()
 print(list_hashes)
 
 def push_csv_to_gsheet(csv_path, sheet_id):
-
+    """ 
+    Function used to take the new csv file and push it to the google sheets file.
+    """
     gc = pygsheets.authorize(service_file='client_secret.json') #authorization
     worksheet = gc.open('Days_Combined').sheet1 #opens the first sheet in "Sign Up"
 
