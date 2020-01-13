@@ -1,6 +1,8 @@
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
-
+"""
+File used to check if the API is connecting to the google sheets file.
+"""
 
 # use creds to create a client to interact with the Google Drive API
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
