@@ -3,6 +3,7 @@ clear all
 
 %Assign the ID of the sheet's web address for the csv api
 Sheet_ID = '1HLoDasR_YAcyZkQLkCRk67cBzrFpOnLatv81vD_qb3A';
+%Sheet_ID = '1hSl-oLvFO5bySQVg2ZEACzz4hofnHY8UWjVoEt1m-F4';
 
 %Import the speadsheet of day averages as a .csv file
 Day_Averages = GetGoogleSpreadsheet(Sheet_ID);
@@ -35,10 +36,44 @@ rho = corr(double_lists);
 corrplot(double_lists)
 saveas(gcf,'corrplot.png'); 
 corrplot_file = imread('corrplot.png');
-
+ftsp = double_lists(:,3);
+hum = double_lists(:,1);
+regression(hum, ftsp)
+saveas(gcf,'regression.png'); 
 % Emails the new png file to a gmail account. This account is linked to the
 % drive so that new files are saved
-sendmail('samuelwil1997@gmail.com','test','here you are','corrplot.png')
+%sendmail('samuelwil1997@gmail.com','design evaluations','The current best design is design one','corrplot.png')
+
+function [] = regression(dT,dH)
+
+    windowSize = 10;
+    b = (1/windowSize)*ones(1,windowSize);
+    a = 1;
+
+    figure() 
+    plot(dT(1:length(dT)), zscore(dT))
+    hold on 
+    plot(dT(1:length(dH)), zscore(dH))
+    xlabel('Time')
+    ylabel('Z-Score')
+    legend('Footsteps', 'Humidity')
+    title('Footsteps and Humidity over a day')
+    set(gcf,'color','w');
+
+    figure()
+
+    scatter(dT, dH)
+    hold on
+    fit = polyfit(dT,dH,1);
+    plot(dT,polyval(fit,dT));
+    xlabel('Footsteps')
+    ylabel('Humidity (%)')
+    legend('Data', 'Regression', 'Location', 'southoutside')
+    title('Footsteps vs Humidity over a day')
+    set(gcf,'color','w');
+    mdl = fitlm(dT,dH)
+    rsquare = mdl.Rsquared.Ordinary
+end
 
 function [double_matrix,Output_List] = List_Sorter(double_matrix,Day_Averages,n)
 % Converts cells into doubles for plotting and then scales them
