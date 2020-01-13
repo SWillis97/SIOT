@@ -8,13 +8,21 @@ This README file outlines the use of the .py scripts within this folder, and whi
 Please install the following libraries if they have not been installed previously.
 
 Adafruit_DHT: Follow instructions on https://github.com/adafruit/Adafruit_Python_DHT
+
 Numpy: `pip install numpy`
+
 Pandas: `pip install pandas`
+
 DateTime: `pip install DateTime`
+
 multiproccessing: `pip install multiprocess`
+
 googleapiclient: Follow instructions on https://github.com/googleapis/google-api-python-client
+
 oauth2client: `pip install oauth2client`
+
 gspread: `pip install gspread`
+
 pygsheets: `pip install pygsheets`
 
 ### Test Functions
