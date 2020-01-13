@@ -4,25 +4,29 @@ This README file outlines the use of the .py scripts within this folder, and whi
 ### client_secret
 `client_secret.json` must be in the same directory as the file `shutdown.py` in order for the google drive API to work
 
-### Required Packages
+### Libraries
+Please install the following libraries if they have not been installed previously.
 
+Adafruit_DHT: Follow instructions on https://github.com/adafruit/Adafruit_Python_DHT
+Numpy: `pip install numpy`
+Pandas: `pip install pandas`
+DateTime: `pip install DateTime`
+multiproccessing: `pip install multiprocess`
+googleapiclient: Follow instructions on https://github.com/googleapis/google-api-python-client
+oauth2client: `pip install oauth2client`
+gspread: `pip install gspread`
+pygsheets: `pip install pygsheets`
 
 ### Test Functions
 These functions are only to be used whilst setting up the circuitry and system to check it works and troubleshoot any problems.
 
-`API_Test.py`: Used to check if the API is working and pulls data from google drive
+`API_Test.py`: Used to check if the API is working and pulls data from google drive.
 
-`fsr.py`: File used to check if the force sensitive resistor is working. If it detects a footstep it prints 'Under Pressure'
+`fsr.py`: File used to check if the force sensitive resistor is working. If it detects a footstep it prints 'Under Pressure'.
 
-`humidity.py`: groups the negative and positive values of `power_surplus` together before creating the macro period profiles.
+`humidity.py`: Uses the `Adafruit_DHT` Library to run a DHT11 humidity and temperature sensor.
 
-`SAM_Profile_Adjuster.m`: Uses a capacity distribution called `ratio` to adjust the profile lists and generate the capacity shortage after the BESS is installed over the time period.
-
-`BEN_BESS_Profit.m`: An imported function from subsystem three which calculates the profits for each battery capacity.
-
-`SAM_Opt_One_Standalone.m`: A standalone function for subsystem 2 for a simple 'cheapest option' optimisation. Does not consider the output from `BEN_BESS_Profit.m` or the payback period.
-
-`SAM_Opt_One_Profit.m`: The system level optimisation which considers payback period and outputs the cheapest option, which returns the investment in 20 years.
+`Update_Checker.py`: Used to check your data is in the correct format for the google sheet.
 
 ## Master_Code_Standalone
 As mentioned above, this master code is used to generate the cheapest option over 20 years. This is the optimiation to use if a local community is supporting itselfas they are paying for it.
